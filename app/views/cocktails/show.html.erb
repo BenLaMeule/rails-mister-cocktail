@@ -30,8 +30,19 @@
     </div>
   </div>
 
-  <div class="row text-center">
+  <div class="row text-center" id="add-dose">
     <%= link_to t(".top_call_to_action", default: "Add a dose"), new_cocktail_dose_path(@cocktail), class: "navbar-wagon-item navbar-wagon-button btn" %>
+  </div>
+
+  <div class="row hidden" id="new-dose-form">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <%= simple_form_for([@cocktail, Dose.new]) do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :description, input_html: { placeholder: "Type new dose" } %>
+        <%= f.association :ingredient, input_html: { placeholder: "Type new ingredient" } %>
+        <%= f.submit class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
