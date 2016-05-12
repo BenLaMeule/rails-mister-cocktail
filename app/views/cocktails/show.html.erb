@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="text-center">Cocktail details</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="text-center"><%= @cocktail.name %></h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <h3 class="text-center">Ingredients</h3>
+      <% @cocktail.ingredients.each do |ingredient| %>
+        <li class="list-unstyled">
+          <p><%= ingredient.name %></p>
+        </li>
+      <% end %>
+    </div>
+      <h3 class="text-center">Doses</h3>
+      <% @cocktail.doses.each do |dose| %>
+        <li class="list-unstyled">
+          <p><%= link_to (fa_icon 'trash'), dose_path(dose),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %> <%= dose.description %></p>
+        </li>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <%= link_to t(".top_call_to_action", default: "Add a dose"), new_cocktail_dose_path(@cocktail), class: "navbar-wagon-item navbar-wagon-button btn" %>
+  </div>
+</div>
+

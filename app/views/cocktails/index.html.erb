@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="text-center" style="margin-bottom:30px">Cocktails list</h1>
+    </div>
+  </div>
+  <div class="row">
+    <% @cocktails.each do |cocktail| %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= asset_url('cocktail.jpeg') %>;">
+          <div class="card-description">
+            <h2><%= cocktail.name %></h2>
+          </div>
+          <%= link_to "", cocktail_path(cocktail), class: "card-link" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
