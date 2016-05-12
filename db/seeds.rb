@@ -6,12 +6,27 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
-Ingredient.create(name: "vodka")
-Ingredient.create(name: "tequila")
-Ingredient.create(name: "gin")
-Ingredient.create(name: "orange juice")
-Ingredient.create(name: "coke")
-Ingredient.create(name: "champagne")
+require 'open-uri'
+require 'nokogiri'
+
+Dose.destroy_all
+Ingredient.destroy_all
+Cocktail.destroy_all
+
+for i in 1..7 do
+  url = "http://www.barmano.fr/drinks/ingredient/search?page=#{i}&query=keyword:"
+  html_file = open(url)
+  html_doc = Nokogiri::HTML(html_file)
+  html_doc.search('.itemName a').each do |element|
+    Ingredient.create(name: element.content)
+  end
+end
+
+for i in 1..5 do
+  url = "http://www.barmano.fr/drinks/recipe/search?page=#{i}&query=+recipeName:"
+  html_file = open(url)
+  html_doc = Nokogiri::HTML(html_file)
+  html_doc.search('.itemName a').each do |element|
+    Cocktail.create(name: element.content)
+  end
+end
