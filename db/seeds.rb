@@ -29,7 +29,8 @@ for i in 1..5 do
   html_doc.search('.item.hasTools').each do |element|
     image_url = element.search('.itemInfoContainer a img').attribute("src").value
     name = element.search('.itemInfoContainer a').attribute("title").value
-    cocktail = Cocktail.create(name: name, image_url: image_url)
+    note = element.search('.moduleContent p strong').children.text
+    cocktail = Cocktail.create(name: name, image_url: image_url, note: note)
     element.search('.itemInfoContainer .itemInfo li a').each do |ingre|
       name = ingre.attribute("title").value if ingre.attribute("title")
       if Ingredient.find_by_name(name)

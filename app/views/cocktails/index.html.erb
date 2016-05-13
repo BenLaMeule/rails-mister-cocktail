@@ -8,6 +8,15 @@
     <% @cocktails.each do |cocktail| %>
       <div class="col-xs-12 col-sm-4">
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cocktail.image_url %>);">
+          <div class="card-category">
+            <p>
+              <% if cocktail.note.to_f != 0 %>
+                <% (1..5).each do |star| %>
+                  <%= fa_icon star <= cocktail.note.to_f ? 'star' : 'star-o' %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
           <div class="card-description">
             <h2><%= cocktail.name %></h2>
           </div>
