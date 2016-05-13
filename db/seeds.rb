@@ -26,7 +26,9 @@ for i in 1..5 do
   url = "http://www.barmano.fr/drinks/recipe/search?page=#{i}&query=+recipeName:"
   html_file = open(url)
   html_doc = Nokogiri::HTML(html_file)
-  html_doc.search('.itemName a').each do |element|
-    Cocktail.create(name: element.content)
+  html_doc.search('.item hasTools').each do |element|
+    image_url = element.search('.itemInfoContainer a img').attribute("src").value
+    name = element.search('.itemInfoContainer a').title
+    Cocktail.create(name: name, image_url: image_url)
   end
 end
